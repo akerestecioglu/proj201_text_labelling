@@ -1,0 +1,4 @@
+alikoray: 30
+ramonberke: 10
+eagaev: 5
+orkhan: 1
