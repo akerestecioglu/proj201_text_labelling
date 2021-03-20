@@ -87,10 +87,13 @@ def start_prodigy(usernames, task_type, db_name, labels, process_file_name):
 
 
 if __name__ == '__main__':
+    # PARAMETER VALUES
     # students_info_file_path should be csv, header should be Surname,First name,ID number,Email address
     students_info_file_path = 'example_students.csv'
     # path of the output file that the student credentials will be written into
     student_credentials_out_file_path = 'credentials.txt'
+    # the path of the file which contains all examples to be distributed
+    examples_file_path = 'deprem.jsonl'
     # postfix of the db name that prodigy will store the annotations in
     # the db names will be in the following format: $username-$db_name
     db_name_postfix = 'ner-db-01'
@@ -101,14 +104,21 @@ if __name__ == '__main__':
     # number of students to annotate each example
     num_students_per_example = 2
     # label options in prodigy, should be a string which labels are separated with commas
+    task_type = 'ner'
     labels = 'ADANA,BURSA,CEYHAN,DENIZLI'
     # path of the output file that ids of prodigy processes that are created for each user is written intp
     process_ids_out_file_path = 'process_ids.txt'
+    # path of the output file which average cohen's kappa scores will be written into
+    avg_kappa_out_file_path = f'{db_name_postfix}-average.csv'
+    # path of the output file which number of not annotated examples will be written into
+    no_annotation_counts_out_file_path = f'no-annotation-counts-{db_name_postfix}.txt'
+
+    # FUNCTION CALLS
     add_users_to_db(students_info_file_path)
     output_credentials(students_info_file_path, student_credentials_out_file_path)
     usernames = get_usernames(students_info_file_path)
-    distribute_sentences('deprem.jsonl', examples_output_directory, db_name_postfix, usernames, num_examples_per_student, num_students_per_example)
+    distribute_sentences(examples_file_path, examples_output_directory, db_name_postfix, usernames, num_examples_per_student, num_students_per_example)
     time.sleep(5)
-    start_prodigy(usernames, 'ner', db_name_postfix, labels, process_ids_out_file_path)
-    #find_average_kappa_per_student(db_name, 'ner', usernames, f'{db_name}-average.csv')
-    #find_not_annotated_example_counts(db_name, 'ner', f'no-annotation-counts-{db_name}.txt')
+    start_prodigy(usernames, task_type, db_name_postfix, labels, process_ids_out_file_path)
+    find_average_kappa_per_student(db_name_postfix, task_type, usernames, avg_kappa_out_file_path)
+    find_not_annotated_example_counts(db_name_postfix, task_type, no_annotation_counts_out_file_path)
