@@ -1,12 +1,12 @@
 import pandas as pd
+import os
+import portpicker
+import time
 from add_users_to_db import add_users_to_db, output_credentials
 from distribute_sentences import distribute_sentences
 from connect_db import find_average_kappa_per_student, find_not_annotated_example_counts
-import os
-import portpicker
 from project import db
 from project.models import User
-import time
 
 
 # function to get the list of all usernames in a file
