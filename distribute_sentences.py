@@ -1,17 +1,6 @@
-import pandas as pd
 import random
 from collections import defaultdict
-
-# returns the list of usernames of students
-def get_usernames():
-    df = pd.read_csv('students_info.csv')
-    usernames = []
-    # add username of the student to the list of usernames
-    for index, row in df.iterrows():
-        # get username from email adress
-        username = row['Email address'][:row['Email address'].index('@')]
-        usernames.append(username)
-    return usernames
+from all_in_one import get_usernames
 
 
 # reads the file and returns the list of lines
@@ -70,17 +59,9 @@ def distribute_sentences(file_name, output_directory, db_name, usernames, sents_
     sentences_to_file(sents_students, db_name, output_directory)
 
 
-
-''' 
-    def distribute_sentences_with_all_sents(file_name, usernames):
-    sentences = read_data(file_name)
-    sents_students = assign_sents_to_students(sentences, usernames)
-    sentences_to_file(sents_students)
-'''
-
-
 if __name__ == '__main__':
     # PARAMETER VALUES
+    students_info_file_path = 'students_info.csv'
     examples_file_path = 'deprem.jsonl'
     # number of examples to be annotated by each student
     num_examples_per_student = 60
@@ -88,7 +69,7 @@ if __name__ == '__main__':
     num_students_per_example = 2
 
     # FUNCTION CALLS
-    usernames = get_usernames()
+    usernames = get_usernames(students_info_file_path)
     data = read_data(examples_file_path)
     sentences = select_sentences(data, int(len(usernames) * num_examples_per_student / num_students_per_example))
     sents_students = assign_sents_to_students(sentences, usernames, num_examples_per_student, num_students_per_example)
