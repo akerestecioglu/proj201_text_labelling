@@ -2,23 +2,11 @@ import pandas as pd
 import os
 import portpicker
 import time
-from add_users_to_db import add_users_to_db, output_credentials
+from add_users_to_db import add_users_to_db, output_credentials, get_usernames
 from distribute_sentences import distribute_sentences
 from connect_db import find_average_kappa_per_student, find_not_annotated_example_counts
 from project import db
 from project.models import User
-
-
-# function to get the list of all usernames in a file
-def get_usernames(file_name):
-    df = pd.read_csv(file_name)
-    usernames = []
-    # add username of the student to the list of usernames
-    for index, row in df.iterrows():
-        # get username from email adress
-        username = row['Email address'][:row['Email address'].index('@')]
-        usernames.append(username)
-    return usernames
 
 
 # function to get the set of all ids of processes in a file

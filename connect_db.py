@@ -2,7 +2,7 @@ from prodigy.components.db import connect
 from collections import defaultdict
 from sklearn.metrics import cohen_kappa_score
 import math
-from all_in_one import get_usernames
+from add_users_to_db import get_usernames
 
 
 # returns the list of names of datasets in prodigy that end with db_name

@@ -1,6 +1,6 @@
 import random
 from collections import defaultdict
-from all_in_one import get_usernames
+from add_users_to_db import get_usernames
 
 
 # reads the file and returns the list of lines

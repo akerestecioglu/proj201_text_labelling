@@ -45,3 +45,14 @@ def output_credentials(input_file_name, out_file_name):
             # write credentials
             out_file.write(username + ' - ' + password + '\n')
 
+
+# function to get the list of all usernames in a file
+def get_usernames(file_name):
+    df = pd.read_csv(file_name)
+    usernames = []
+    # add username of the student to the list of usernames
+    for index, row in df.iterrows():
+        # get username from email adress
+        username = row['Email address'][:row['Email address'].index('@')]
+        usernames.append(username)
+    return usernames
