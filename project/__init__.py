@@ -33,4 +33,5 @@ login_manager.needs_refresh_message_category = "info"
 @app.before_request
 def before_request():
     session.permanent = True
+    # session will be ended after 30 minutes
     app.permanent_session_lifetime = timedelta(minutes=30)
