@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-For installing the required packages, go to the directory where "requirements.txt" is located and run the below command in terminal.
+For installing the required packages, go to the directory where "requirements.txt" is located and run the command below in terminal.
 
 ```bash
 pip install -r requirements.txt
@@ -28,7 +28,7 @@ Before you start the app, you should run the 'all_in_one.py' script.
 In the main function of the script, there are several functions. The purposes of these functions can be understood from their names.
 
 As you can see below, the last two lines/functions are commented out. The reason is that those functions are for Cohen's Kappa calculations. They should be uncommented when the annotations are done.
-Also, the upper lines except the 3rd and 4th lines (usernames, db_name assignments) should be commented out while calculating Kappa.
+Also, the upper lines except for the 3rd and 4th lines (usernames, db_name assignments) should be commented out while calculating Kappa.
 
 The second parameters of start_prodigy, find_average_kappa_per_student, find_not_annotated_example_counts functions are the task type. This parameter must be one of 'ner' (for named entity recognition) and 'text_classification'.
 
@@ -51,18 +51,18 @@ The parameters and variables can be adjusted according to the needs.
 
 This function has a single parameter, which is the path of the file that the user information is going to be read from.
 
-The input file should be in csv format. The first line should be attribute names, which are: Surname, First name, ID number, Email address.
+The input file should be in CSV format. The first line should be attribute names, which are: Surname, First name, ID number, Email address.
 
 An example file would be as follows:
 
 ```text
 Surname,First name,ID number,Email address
-Beyhan,Fatih,23763,fatihbeyhan@sabanciuniv.edu
-Çarık,Buse,24353,busecarik@sabanciuniv.edu
-Yeniterzi,Reyyan,27564,reyyan@sabanciuniv.edu
+Picasso,Pablo,12371,pablopicasso@sabanciuniv.edu
+Cameron,James,23134,jamescameron@sabanciuniv.edu
+Wonder,Stevie,23746,steviewonder@sabanciuniv.edu
 ```
 
-The function creates user instances for each line in the input file and adds them to the database.
+The function creates user instances for each line in the input file, and adds them to the database.
 
 ##### output_credentials(input_file_name, out_file_name)
 
@@ -72,14 +72,14 @@ It writes the passwords generated for users in the input file to the output file
 
 ##### get_usernames(file_name)
 
-This function reads the input file that stores information on users and returns a list of usernames. The purpose of the function is to feed other functions, i.e. it does not have a functionality alone.
+This function reads the input file that stores information on users and returns a list of usernames. The purpose of the function is to feed other functions, i.e. it does not have functionality alone.
 
 ##### distribute_sentences(file_name, db_name, usernames, sents_per_student, students_per_sent)
-The function creates a jsonl file for each user which consists of the examples assigned to him/her.
+The function creates a JSONL file for each user which consists of the examples assigned to him/her.
 
 _Parameters:_
     
-file_name: The path of the file in which the examples are stored. It should be in jsonl format so that it is compatible with Prodigy.
+file_name: The path of the file in which the examples are stored. It should be in JSONL format so that it is compatible with Prodigy.
 
 db_name: The name of the database that will store the annotations.
 
@@ -89,11 +89,11 @@ sents_per_student: The number of examples that will be assigned to each student.
 
 students_per_sent: The number of students that will annotate a single example.
 
-_**Warning**:_ There should be enough examples in the input file, so that sents_per_student and students_per_sent conditions are met.
+_**Warning**:_ There should be enough examples in the input file so that sents_per_student and students_per_sent conditions are met.
 
 ##### start_prodigy(usernames, task_type, db_name, labels, process_file_name)
 
-This function starts a Prodigy process for each user and stores the port that the process is active on, in the database. Thus, the app directs the user to the same port every time when he/she logs in.
+This function starts a Prodigy process for each user and stores the port that the process is active on, in the database. Thus, the app directs the user to the same port every time he/she logs in.
 
 It also produces a file that involves the ids of the Prodigy and Python processes started for each user so that the processes can be terminated manually when the task is done.
 
@@ -105,7 +105,7 @@ task_type: The type of task to be completed. Must be 'ner' or 'text_classificati
 
 db_name: The name of the database that will store the annotations.
 
-labels: The label options to be chosen by the user. It must be a string. Labels should be seperated by comma. An example would be:
+labels: The label options to be chosen by the user. It must be a string. Labels should be separated by a comma. An example would be:
 
 ```python
 "PERSON,ORGANIZATION,TIME,LOCATION"
@@ -125,7 +125,7 @@ db_type: The type of task to be completed. Must be 'ner' or 'text_classification
 
 students: List of all usernames.
 
-output_file_name: The path of the file which the average scores will be written to.
+output_file_name: The path of the file in which the average scores will be written.
 
 ##### find_not_annotated_example_counts(dataset, db_type, output_file_name)
 
@@ -137,7 +137,7 @@ dataset: The name of the database that will store the annotations.
 
 db_type: The type of task to be completed. Must be 'ner' or 'text_classification'.
 
-output_file_name: The path of the file which the average scores will be written in.
+output_file_name: The path of the file in which the average scores will be written.
 
 ### Running the Application
 
@@ -155,9 +155,9 @@ app.run(host='0.0.0.0', port=8000)
 
 Under the 'PROJ201-ReyyanYeniterzi' folder, there are several scripts, files and folders. 
 
-The app.py script is for starting the application and all_in_one.py script is for making the neccessary setup before running the app and evaluating the results at the end. 
+The app.py script is for starting the application and the all_in_one.py script is for making the necessary setup before running the app and evaluating the results at the end. 
 
-Other scripts are there because all_in_one.py script imports neccessary functions from them.
+Other scripts are there because the all_in_one.py script imports necessary functions from them.
 
 **project**
 
