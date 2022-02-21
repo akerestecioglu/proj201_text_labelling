@@ -1,2 +1,4 @@
 project/data.sqlite
 migrations
+.idea
+__pycache__
